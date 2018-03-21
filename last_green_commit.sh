@@ -1,4 +1,6 @@
 #!/bin/bash
+: ${CI_SERVER_URL:-"https://gitlab.com"}
+
 DIRNAME="$(dirname $(readlink -f "$0"))"
 pushd ${DIRNAME}
 url="${CI_SERVER_URL}/api/v4/projects/${CI_PROJECT_ID}/pipelines?private_token=${PRIVATE_TOKEN}&status=success&ref=${CI_COMMIT_REF_NAME}"
