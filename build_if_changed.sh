@@ -7,22 +7,27 @@ source $cwd/common_functions.sh || {
 }
 
 folder=${1}
+#read -r -d '' command
 command=${@:2}
 DIRNAME="$(dirname $(readlink -f "$0"))"
-${DIRNAME}/changes.sh ${folder}
-if [[ $? -ne 0 ]]; then
+${DIRNAME}/changes.sh ${folder}  || {
   pprint "Error" "Skipping build for '${folder}'."
   exit 0
-fi
+} && {
+  pprint "other" "Building '${folder}'..."
+  pprint "other" "Executing '${command}'..."
 
+  ${command} && {
+    pprint "$0 Successfull"
+  } || {
+    pprint "$0 Failed"
+    exit 1
+  }
 
-pprint "other" "Building '${folder}'..."
-pprint "other" "Executing '${command}'..."
+  exit 0
 
-${command} && {
-  pprint "$0 Successfull"
-} || {
-  pprint "$0 Failed"
 }
 
-exit 0
+
+
+

@@ -18,9 +18,11 @@ fi
 pprint "other" "Checking for changes of folder '${folder}' from ref '${ref}'..."
 
 git diff ${ref} --name-only | grep -qw "^${folder}" && {
-  pprint "other" "Folder '${folder}' has changed."
+  pprint "other" "Folder '${folder}' has changed. RETURN 0"
+  return 0
 } || {
-  pprint "error" "Folder '${folder}' has not changed."
+  pprint "error" "Folder '${folder}' has not changed. RETURN ERROR"
+  return 1
 }
 
 exit 0
