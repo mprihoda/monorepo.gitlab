@@ -21,7 +21,7 @@ git diff ${ref} --name-only | grep -qw "^${folder}" && {
   pprint "other" "Folder '${folder}' has changed. RETURN 0"
   exit 0
 } || {
-  pprint "error" "Folder '${folder}' has not changed. RETURN ERROR"
+  pprint "other" "Folder '${folder}' has not changed. RETURN ERROR"
   exit 1
 }
 

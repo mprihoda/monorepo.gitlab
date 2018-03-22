@@ -11,7 +11,7 @@ function pprint {
 	CF_PREFIX=""
 	case ${CF_LOGGING_LEVEL} in
 		*info*) CF_COLOR=${CF_GREEN} ;CF_PREFIX="[INFO]";shift ;;
-        *other*) CF_COLOR=${CF_MAGENTA} ;CF_PREFIX="";shift ;;
+        *other*) CF_COLOR=${CF_MAGENTA} ;CF_PREFIX="[OTHER]";shift ;;
 		*warn*) CF_COLOR=${CF_YELLOW} ; CF_PREFIX="[WARN]"; shift;;
 		*error*) CF_COLOR=${CF_RED} ; CF_PREFIX="[ERROR]" ;shift ;;
 		*) CF_COLOR=${CF_GREEN}; CF_PREFIX="[INFO]";;

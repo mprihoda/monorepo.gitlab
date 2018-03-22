@@ -11,7 +11,7 @@ folder=${1}
 command=${@:2}
 DIRNAME="$(dirname $(readlink -f "$0"))"
 ${DIRNAME}/changes.sh ${folder}  || {
-  pprint "Error" "Skipping build for '${folder}'."
+  pprint "Warn" "Skipping build for '${folder}'."
   exit 0
 } && {
   pprint "other" "Building '${folder}'..."
