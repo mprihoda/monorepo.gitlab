@@ -17,9 +17,9 @@ fi
 
 pprint "other" "Checking for changes of folder '${folderRegex}' from ref '${ref}'..."
 
-git diff ${ref} --name-only
-git diff ${ref} --name-only | grep -E -qw "${foldfolderRegexer}" && {
-  pprint "other" "Folder '${folderRegex}' has changed. RETURN 0"
+#git diff ${ref} --name-only
+changes=$(git diff ${ref} --name-only | grep -E -w "${foldfolderRegexer}") && {
+  pprint "other" "Folder '${changes}' has changed. RETURN 0"
   exit 0
 } || {
   pprint "other" "Folder '${folderRegex}' has not changed. RETURN ERROR"
