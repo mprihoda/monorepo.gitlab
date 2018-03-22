@@ -20,7 +20,7 @@ pprint "other" "Checking for changes of folder '${folderRegex}' from ref '${ref}
 echo "git diff"
 git diff ${ref} --name-only
 git diff ${ref} --name-only | grep -qE  "${foldfolderRegexer}" && {
-  pprint "other" "Folder '${changes}' has changed. RETURN 0"
+  pprint "other" "Folder '${foldfolderRegexer/|/' '}' has changed. RETURN 0"
   exit 0
 } || {
   pprint "other" "Folder '${folderRegex}' has not changed. RETURN ERROR"
