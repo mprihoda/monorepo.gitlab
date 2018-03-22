@@ -8,9 +8,9 @@ source $cwd/common_functions.sh || {
 
 folder=${1}
 DIRNAME="$(dirname $(readlink -f "$0"))"
-ref=$(cat "${DIRNAME}/.LAST_GREEN_COMMIT") 
+ref=$(cat "${DIRNAME}/.LAST_GREEN_COMMIT")
 # Always indicate changes unless valid green commit ref given, #1
-if [[ ! ${ref:+1} ]]; then 
+if [[ ! ${ref:+1} ]]; then
   pprint "other" 'No LAST_GREEN_COMMIT. Assuming changes.'
   exit 0
 fi

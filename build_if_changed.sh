@@ -19,7 +19,10 @@ fi
 pprint "other" "Building '${folder}'..."
 pprint "other" "Executing '${command}'..."
 
-${command}
-exitCode=$?
+${command} && {
+  pprint "$0 Successfull"
+} || {
+  pprint "$0 Failed"
+}
 
-exit ${exitCode}
+exit 0
