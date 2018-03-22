@@ -6,7 +6,7 @@ source $cwd/common_functions.sh || {
     source $(find -name common_functions.sh)
 }
 
-folder=${1}
+folderRegex=${1}
 DIRNAME="$(dirname $(readlink -f "$0"))"
 ref=$(cat "${DIRNAME}/.LAST_GREEN_COMMIT")
 # Always indicate changes unless valid green commit ref given, #1
@@ -15,13 +15,13 @@ if [[ ! ${ref:+1} ]]; then
   exit 0
 fi
 
-pprint "other" "Checking for changes of folder '${folder}' from ref '${ref}'..."
+pprint "other" "Checking for changes of folder '${folderRegex}' from ref '${ref}'..."
 
-git diff ${ref} --name-only | grep -qw "^${folder}" && {
-  pprint "other" "Folder '${folder}' has changed. RETURN 0"
+git diff ${ref} --name-only | grep -E -qw "${foldfolderRegexer}" && {
+  pprint "other" "Folder '${folderRegex}' has changed. RETURN 0"
   exit 0
 } || {
-  pprint "other" "Folder '${folder}' has not changed. RETURN ERROR"
+  pprint "other" "Folder '${folderRegex}' has not changed. RETURN ERROR"
   exit 1
 }
 
