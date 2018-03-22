@@ -7,6 +7,7 @@ source $cwd/common_functions.sh || {
 }
 
 folder=${1}
+command=${@:2}
 
 DIRNAME="$(dirname $(readlink -f "$0"))"
 ${DIRNAME}/changes.sh ${folder}  || {
@@ -15,6 +16,13 @@ ${DIRNAME}/changes.sh ${folder}  || {
   exit 0
 } && {
   pprint "other" "Building '${folder}'..."
+  if [ ! -z ${command} ]; then
+    ${command} && {
+      pprint "$0 Successfull"
+    } || {
+      pprint "$0 Failed"
+    }
+  fi
   exit 0
 }
 

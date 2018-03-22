@@ -1,6 +1,5 @@
 # monorepo.gitlab
-
-[![GitPitch](https://gitpitch.com/assets/badge.svg)](https://gitpitch.com/awesome-inc/hello.gitlab.monorepo/master)
+> This is an improvement of https://github.com/awesome-inc/monorepo.gitlab
 
 Scripts helping towards [Monorepo](https://medium.com/@maoberlehner/monorepos-in-the-wild-33c6eb246cb9) with [GitLab CI](https://docs.gitlab.com/ee/ci/yaml/).
 
@@ -12,7 +11,7 @@ Hopefully soon to be integrated into GitLab CI!
 Add as a submodule
 
 ```bash
-git submodule add https://github.com/awesome-inc/monorepo.gitlab.git .monorepo.gitlab
+git submodule add https://github.com/mobicorp-inc/monorepo.gitlab.git .monorepo.gitlab
 ```
 
 and update your `.gitlab-ci.yml`.
@@ -30,7 +29,7 @@ before_script:
     - .monorepo.gitlab/last_green_commit.sh
 ```
 
-- Build your sub-component `foo` only when there are diffs in `./foo` since the *last green commit*
+- Build your sub-component `foo` only when there are diffs in `./foo` or `./libs` or `anyother_regex` since the *last green commit*
 
 ```yml
 build-foo:
@@ -39,6 +38,11 @@ build-foo:
   # after
   script: .monorepo.gitlab/build_if_changed.sh foo build foo
 ```
+
+## Motivation
+
+* You actually want to build not only when the 'foo' changes but also when: libs/, Dockerfile, etc. So I implemented regex matching.
+* actually there's no way of skipping a gitlabci job, so if you exit with non-zero the whole pipeline will fail, if you use api/jobs to cancel the job the whole pipeline gets canceled, So I figure it out it will be a good idea to use simple ifs.
 
 ## Tips
 
