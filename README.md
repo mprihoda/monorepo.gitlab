@@ -29,51 +29,48 @@ before_script:
     - .monorepo.gitlab/last_green_commit.sh
 ```
 
-- Build your sub-component `foo` only when there are diffs in `./foo` or `./libs` or `anyother_regex` since the *last green commit*
+- Build your sub-component `foo` only when there are diffs in `./foo`, `./libs` or `anyother_regex` since the *last green commit*
 
 ```yml
 build-foo:
   # before
   script: build foo
   # after
-  script: .monorepo.gitlab/build_if_changed.sh foo build foo
+  script: |
+    # command at the end is optional, one can use noop ":"
+    .monorepo.gitlab/build_if_changed.sh "Dockerfile|libs|apps/foo|foo"
+    if [ ! -f .SKIP_THIS_JOB ]; then
+      bash build.sh foo
+      echo "more commands here"
+    fi
 ```
+
+- Skip subsequent jobs that depend on previous skipped jobs by:
+
+```yml
+test-foo:
+  stage: test
+  script: |
+    if [ ! -f .SKIP_THIS_JOB ]; then
+      ls -a
+      echo "Do a test here"
+      echo "For example run a test suite"
+    fi
+  dependencies:
+  - build-foo
+```
+
+> **NOTE:** only enhanced .sh files , no Windows support yet, feel free to fork and improve them.
 
 ## Motivation
 
 * You actually want to build not only when the 'foo' changes but also when: libs/, Dockerfile, etc. So I implemented regex matching.
 * actually there's no way of skipping a gitlabci job, so if you exit with non-zero the whole pipeline will fail, if you use api/jobs to cancel the job the whole pipeline gets canceled, So I figure it out it will be a good idea to use simple ifs.
+* skip also subsequent jobs.
 
 ## Tips
 
 Use [YAML anchors](http://blog.daemonl.com/2016/02/yaml.html#yaml-anchors-references-extend) to keep your jobs DRY.
-
-Say your using [docker-compose](https://docs.docker.com/compose/) to orchestrate & build your services.
-
-Your `docker-compose.yml` may look something like this
-
-```yml
-version: '3'
-services:
-  webapp:
-    image: "${DOCKER_REGISTRY}/${REPO}/${PRODUCT}_webapp:${TAG}"
-    build:
-      context: ./webapp
-  ...
-```
-
-And you build and push each service through a script `build.sh` which goes something like this
-
-```bash
-#!/bin/bash -ex
-component=$1
-docker-compose build ${component}
-if [ "$CI_BUILD_REF_NAME" -ne "master" ]; then exit; fi
-docker-compose push ${component}
-```
-
-This uses `docker-compose` to build the service specified on the command line as a tagged docker image.
-If you are on `master` it pushes the built image right away to the specified registry.
 
 Then, your jobs in `.gitlab-ci.yml` could look something like this
 
@@ -84,8 +81,17 @@ Then, your jobs in `.gitlab-ci.yml` could look something like this
     - linux
     - docker
   stage: build
-  script: .monorepo.gitlab/build_if_changed.sh ${CI_JOB_NAME} ./build.sh ${CI_JOB_NAME}
+  script: |
+    .monorepo.gitlab/build_if_changed.sh "Dockerfile|libs|apps/${CI_JOB_NAME}"  ":"
+    if [ ! -f .SKIP_THIS_JOB ]; then
+      bash build.sh ${CI_JOB_NAME}
+      echo hello
+    fi
+  artifacts:
+    paths:
+    - ".SKIP_THIS_JOB"
 
 webapp:
   <<: *build_definition
+
 ```
