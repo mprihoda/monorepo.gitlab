@@ -18,10 +18,10 @@ fi
 pprint "other" "Checking for changes of folder(s)/files '${folderRegex/|/' '}' from ref '${ref}'..."
 
 git diff ${ref} --name-only | grep -qE  "${folderRegex}" && {
-  pprint "info" "Folder(s)/files '${folderRegex/|/' '}' has changed. RETURN 0"
+  pprint "info" "Folder(s)/files '${folderRegex/|/' or '}' has changed. RETURN 0"
   exit 0
 } || {
-  pprint "other" "Folder(s)/files '${folderRegex/|/' '}' has not changed. RETURN ERROR"
+  pprint "other" "Folder(s)/files '${folderRegex/|/' or '}' has not changed. RETURN ERROR"
   exit 1
 }
 
