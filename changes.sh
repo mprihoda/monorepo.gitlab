@@ -17,9 +17,10 @@ fi
 
 pprint "other" "Checking for changes of folder '${folderRegex}' from ref '${ref}'..."
 
+grep --version
 echo "git diff"
 git diff ${ref} --name-only
-changes=$(git diff ${ref} --name-only | grep -E  "${foldfolderRegexer}") && {
+changes=$(git diff ${ref} --name-only | grep -qE  "${foldfolderRegexer}") && {
   pprint "other" "Folder '${changes}' has changed. RETURN 0"
   exit 0
 } || {
