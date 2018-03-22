@@ -18,9 +18,9 @@ fi
 pprint "other" "Checking for changes of folder '${folderRegex}' from ref '${ref}'..."
 
 echo "git diff"
-echo 'git diff "'${ref}'" --name-only | grep -qE  "'${foldfolderRegexer}'" '
-git diff ${ref} --name-only | grep -qE  "${foldfolderRegexer}" && {
-  pprint "other" "Folder '${foldfolderRegexer/|/' '}' has changed. RETURN 0"
+echo 'git diff "'${ref}'" --name-only | grep -qE  "'${folderRegex}'" '
+git diff ${ref} --name-only | grep -qE  "${folderRegex}" && {
+  pprint "other" "Folder '${folderRegex/|/' '}' has changed. RETURN 0"
   exit 0
 } || {
   pprint "other" "Folder '${folderRegex}' has not changed. RETURN ERROR"
