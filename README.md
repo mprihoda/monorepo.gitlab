@@ -1,5 +1,7 @@
 # monorepo.gitlab
 > This is an improvement of https://github.com/awesome-inc/monorepo.gitlab
+> **NOTE:** only enhanced .sh files , no Windows support yet, feel free to fork and improve them.
+
 
 Scripts helping towards [Monorepo](https://medium.com/@maoberlehner/monorepos-in-the-wild-33c6eb246cb9) with [GitLab CI](https://docs.gitlab.com/ee/ci/yaml/).
 
@@ -63,7 +65,6 @@ test-foo:
   - build-foo
 ```
 
-> **NOTE:** only enhanced .sh files , no Windows support yet, feel free to fork and improve them.
 
 ## Motivation
 
