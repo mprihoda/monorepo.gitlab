@@ -15,7 +15,7 @@ if [[ ! ${ref:+1} ]]; then
   exit 0
 fi
 
-echo "Checking for changes of folder '${folder}' from ref '${ref}'..."
+pprint "other" "Checking for changes of folder '${folder}' from ref '${ref}'..."
 
 git diff ${ref} --name-only | grep -qw "^${folder}"
 changes=$?
