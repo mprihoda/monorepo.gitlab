@@ -15,15 +15,13 @@ if [[ ! ${ref:+1} ]]; then
   exit 0
 fi
 
-pprint "other" "Checking for changes of folder '${folderRegex}' from ref '${ref}'..."
+pprint "other" "Checking for changes of folder(s)/files '${folderRegex/|/' '}' from ref '${ref}'..."
 
-echo "git diff"
-echo 'git diff "'${ref}'" --name-only | grep -qE  "'${folderRegex}'" '
 git diff ${ref} --name-only | grep -qE  "${folderRegex}" && {
-  pprint "other" "Folder '${folderRegex/|/' '}' has changed. RETURN 0"
+  pprint "other" "Folder(s)/files '${folderRegex/|/' '}' has changed. RETURN 0"
   exit 0
 } || {
-  pprint "other" "Folder '${folderRegex}' has not changed. RETURN ERROR"
+  pprint "other" "Folder(s)/files '${folderRegex/|/' '}' has not changed. RETURN ERROR"
   exit 1
 }
 
