@@ -50,6 +50,7 @@ build-foo:
 - Skip subsequent jobs that depend on previous skipped jobs by:
 
 > an image is worth a thousand words
+
 ![image](skip_jobs.png)
 
 ```yml
