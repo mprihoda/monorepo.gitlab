@@ -1,5 +1,5 @@
 #!/bin/bash
-: ${CI_SERVER_URL:-"https://gitlab.com"}
+: ${CI_SERVER_URL:="https://gitlab.com"}
 
 DIRNAME="$(dirname $(readlink -f "$0"))"
 pushd ${DIRNAME}
