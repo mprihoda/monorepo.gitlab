@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 : ${CI_SERVER_URL:-"https://gitlab.com"}
 
 DIRNAME="$(dirname $(readlink -f "$0"))"
