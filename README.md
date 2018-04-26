@@ -13,7 +13,7 @@ Hopefully soon to be integrated into GitLab CI!
 Add as a submodule
 
 ```bash
-git submodule add https://github.com/mobicorp-inc/monorepo.gitlab.git .monorepo.gitlab
+git submodule add https://github.com/mobicorp/monorepo.gitlab.git .monorepo.gitlab
 ```
 
 and update your `.gitlab-ci.yml`.
@@ -31,7 +31,8 @@ before_script:
     - .monorepo.gitlab/last_green_commit.sh
 ```
 
-- Build your sub-component `foo` only when there are diffs in `./foo`, `./libs` or `anyother_regex` since the *last green commit*
+- Build your sub-component `foo` only when there are diffs in `./foo`, `./libs` or `anyother_regex` s
+e the *last green commit*
 
 ```yml
 build-foo:
