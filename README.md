@@ -31,8 +31,7 @@ before_script:
     - .monorepo.gitlab/last_green_commit.sh
 ```
 
-- Build your sub-component `foo` only when there are diffs in `./foo`, `./libs` or `anyother_regex` s
-e the *last green commit*
+- Build your sub-component `foo` only when there are diffs in `./foo`, `./libs` or `anyother_regex` since the *last green commit*
 
 ```yml
 build-foo:
