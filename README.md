@@ -13,7 +13,7 @@ Hopefully soon to be integrated into GitLab CI!
 Add as a submodule
 
 ```bash
-git submodule add https://github.com/mobicorp-inc/monorepo.gitlab.git .monorepo.gitlab
+git submodule add https://github.com/mobicorp/monorepo.gitlab.git .monorepo.gitlab
 ```
 
 and update your `.gitlab-ci.yml`.
